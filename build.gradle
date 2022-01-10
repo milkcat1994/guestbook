@@ -14,9 +14,23 @@ repositories {
 }
 
 dependencies {
+	compileOnly('javax.persistence:javax.persistence-api:2.2')
+	implementation('org.thymeleaf:thymeleaf:3.0.12.RELEASE')
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	testImplementation ('org.springframework.boot:spring-boot-starter-test')
+	{
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client'
+	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time'
 }
 
 test {
