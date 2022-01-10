@@ -15,7 +15,9 @@ repositories {
 
 dependencies {
 	compileOnly('javax.persistence:javax.persistence-api:2.2')
-	implementation('org.thymeleaf:thymeleaf:3.0.12.RELEASE')
+	//thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
@@ -26,11 +28,10 @@ dependencies {
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
 	testImplementation ('org.springframework.boot:spring-boot-starter-test')
-	{
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+			{
+				exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+			}
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client'
-	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time'
 }
 
 test {
