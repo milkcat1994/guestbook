@@ -74,4 +74,28 @@ public class GuestbookRepositoryTests {
             System.out.println(guestbook);
         });
     }
+
+    // 제목 혹은 내용에 특정한 키워드가 있고, gno가 0보다 큰 엔티티 검색
+    @Test
+    public void testQuery2(){
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("gno").descending());
+
+        QGuestbook qGuestbook = QGuestbook.guestbook;
+
+        String keyword = "1";
+
+        BooleanExpression exTitle = qGuestbook.title.contains(keyword);
+        BooleanExpression exContent = qGuestbook.content.contains(keyword);
+        BooleanExpression exAll = exTitle.or(exContent);
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(exAll);
+        builder.and(qGuestbook.gno.gt(0L));
+
+        Page<Guestbook> result = guestbookRepository.findAll(builder, pageable);
+
+        result.stream().forEach(guestbook -> {
+            System.out.println(guestbook);
+        });
+    }
 }
