@@ -4,8 +4,13 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
     <th:block th:fragment="content">
-
-        <h1>GuestBook List Page</h1>
+        <h1 class="mt-4">GuestBook List Page
+            <span>
+                <a th:href="@{/guestbook/register}">
+                    <button type="button" class="btn btn-outline-primary">REGISTER</button>
+                </a>
+            </span>
+        </h1>
 
         <table class="table table-striped">
             <thead>
@@ -19,7 +24,11 @@
 
             <tbody>
             <tr th:each="dto : ${result.dtoList}">
-                <th scope="row">[[${dto.gno}]]</th>
+                <th scope="row">
+                    <a th:href="@{/guestbook/read(gno = ${dto.gno}, page = ${result.page})}">
+                        [[${dto.gno}]]
+                    </a>
+                </th>
                 <td>[[${dto.title}]]</td>
                 <td>[[${dto.writer}]]</td>
                 <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
@@ -42,6 +51,39 @@
                 <a class="page-link" th:href="@{/guestbook/list(page= ${result.end +1})}">Next</a>
             </li>
         </ul>
+
+        <!--    Guestbook 등록 완료 모달창 시작    -->
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">방명록 등록 확인</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>방명록이 등록되었습니다.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--   inline 속성을 이용하면 새로운 글이 등록 될 시 msg에 번호가 저장된다.
+             하지만 등록 후 redirect되는 화면이 아니라 단순한 링크 이동의 경우 msg는 null이 된다.
+             -->
+        <script th:inline="javascript">
+            var msg = [[${msg}]]
+            console.log(msg);
+
+            if(msg){
+                $(".modal").modal();
+            }
+        </script>
 
     </th:block>
 
