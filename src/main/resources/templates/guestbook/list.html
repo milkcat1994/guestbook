@@ -43,6 +43,39 @@
             </li>
         </ul>
 
+        <!--    Guestbook 등록 완료 모달창 시작    -->
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">방명록 등록 확인</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>방명록이 등록되었습니다.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--   inline 속성을 이용하면 새로운 글이 등록 될 시 msg에 번호가 저장된다.
+             하지만 등록 후 redirect되는 화면이 아니라 단순한 링크 이동의 경우 msg는 null이 된다.
+             -->
+        <script th:inline="javascript">
+            var msg = [[${msg}]]
+            console.log(msg);
+
+            if(msg){
+                $(".modal").modal();
+            }
+        </script>
+
     </th:block>
 
 </th:block>
