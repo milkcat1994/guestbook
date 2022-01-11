@@ -53,4 +53,17 @@ public class GuestbookServiceTests {
 
         System.out.println(service.read(gno));
     }
+
+    @Test
+    public void testModify(){
+        long gno = 123L;
+        GuestbookDTO guestbookDTO = service.read(gno);
+
+        System.out.println("EX Modify: " + guestbookDTO);
+
+        guestbookDTO.setTitle("Modify Test1");
+        service.modify(guestbookDTO);
+
+        System.out.println("POST Modify: " + service.read(gno));
+    }
 }
