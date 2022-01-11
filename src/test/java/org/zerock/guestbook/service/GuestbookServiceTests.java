@@ -66,4 +66,15 @@ public class GuestbookServiceTests {
 
         System.out.println("POST Modify: " + service.read(gno));
     }
+
+    @Test
+    public void testRemove(){
+        long gno = 305L;
+        service.remove(gno);
+
+        if(service.read(gno) == null)
+            System.out.println("already Removed");
+        else
+            System.out.println("not Removed");
+    }
 }
