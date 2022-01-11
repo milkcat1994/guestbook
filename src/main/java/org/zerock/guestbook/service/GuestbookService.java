@@ -30,4 +30,5 @@ public interface GuestbookService {
                 .build();
     }
 
+    GuestbookDTO read(Long gno);
 }
