@@ -45,6 +45,12 @@ public class GuestbookServiceTests {
 
         System.out.println("=======================================");
         resultDTO.getPageList().forEach(i -> System.out.println(i));
+    }
 
+    @Test
+    public void testGuestBook(){
+        long gno = 123L;
+
+        System.out.println(service.read(gno));
     }
 }
