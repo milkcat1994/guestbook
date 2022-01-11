@@ -71,4 +71,15 @@ public class GuestBookController {
         return "redirect:/guestbook/read";
     }
 
+    @PostMapping("/remove")
+    public String remove(long gno, RedirectAttributes redirectAttributes){
+        log.info("gno: "+ gno);
+        service.remove(gno);
+
+        // addAttribute와 다르게 새로고침 시 증발하게 된다.
+        // 두번 이상 삭제 되지 않기 위해 addFlashAttribute를 이용하여 등록해야한다.
+        redirectAttributes.addFlashAttribute("msg", gno);
+        return "redirect:/guestbook/list";
+    }
+
 }
