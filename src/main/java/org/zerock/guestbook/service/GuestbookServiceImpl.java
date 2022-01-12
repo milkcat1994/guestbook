@@ -4,6 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,6 +14,7 @@ import org.zerock.guestbook.dto.PageRequestDTO;
 import org.zerock.guestbook.dto.PageResultDTO;
 import org.zerock.guestbook.entity.Guestbook;
 import org.zerock.guestbook.entity.QGuestbook;
+import org.zerock.guestbook.mapper.GuestbookMapper;
 import org.zerock.guestbook.repository.GuestbookRepository;
 
 import java.util.Optional;
@@ -26,6 +28,8 @@ public class GuestbookServiceImpl implements GuestbookService{
     // 반드시 final로 선언
     // @RequiredArgsConstructor로 인해 초기화 되지않은 final 필드, @NonNull이 붙은 필드를 매개변수로 갖는 생성자를 자동으로 생성한다.
     private final GuestbookRepository repository;
+
+    private final GuestbookMapper mapper = Mappers.getMapper(GuestbookMapper.class);
 
     @Override
     public Long register(GuestbookDTO dto) {
@@ -52,6 +56,16 @@ public class GuestbookServiceImpl implements GuestbookService{
         Function<Guestbook, GuestbookDTO> fn = (entity -> entityToDto(entity));
 
         return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public Guestbook dtoToEntity(GuestbookDTO dto) {
+        return mapper.dtoToEntity(dto);
+    }
+
+    @Override
+    public GuestbookDTO entityToDto(Guestbook entity) {
+        return mapper.entityToDto(entity);
     }
 
     @Override

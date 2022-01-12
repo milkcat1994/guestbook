@@ -39,6 +39,9 @@ dependencies {
 				exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 			}
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client'
+
+	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 }
 
 test {
