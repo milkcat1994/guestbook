@@ -64,7 +64,7 @@
             <li class="page-item" th:if="${result.prev}">
                 <a class="page-link" th:href="@{/guestbook/list(page= ${result.start -1},
                 type= ${pageRequestDTO.type},
-                keyword= ${pageRequestDTO.keyword})정}" tabindex="-1">Previous</a>
+                keyword= ${pageRequestDTO.keyword})}" tabindex="-1">Previous</a>
             </li>
 
             <li th:class="'page-item ' + ${result.page == page ? 'active' : ''}" th:each="page: ${result.pageList}">
