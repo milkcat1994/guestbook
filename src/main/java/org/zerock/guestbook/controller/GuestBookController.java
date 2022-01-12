@@ -46,6 +46,7 @@ public class GuestBookController {
         // 새로 추가된 Entity 번호
         Long gno = service.register(dto);
         redirectAttributes.addFlashAttribute("msg", gno);
+        redirectAttributes.addFlashAttribute("exPage", "register");
 
         return "redirect:/guestbook/list";
     }
@@ -81,6 +82,7 @@ public class GuestBookController {
         // addAttribute와 다르게 새로고침 시 증발하게 된다.
         // 두번 이상 삭제 되지 않기 위해 addFlashAttribute를 이용하여 등록해야한다.
         redirectAttributes.addFlashAttribute("msg", gno);
+        redirectAttributes.addFlashAttribute("exPage", "remove");
         return "redirect:/guestbook/list";
     }
 
