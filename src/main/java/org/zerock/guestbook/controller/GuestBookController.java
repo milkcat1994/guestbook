@@ -27,9 +27,9 @@ public class GuestBookController {
     }
 
     @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model){
-        log.info("list.........."+ pageRequestDTO);
-        model.addAttribute("result", service.getList(pageRequestDTO));
+    public void list(@ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model){
+        log.info("list.........."+ requestDTO);
+        model.addAttribute("result", service.getList(requestDTO));
     }
 
     // 화면 도식
