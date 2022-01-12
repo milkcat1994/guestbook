@@ -29,8 +29,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok:1.18.20'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
