@@ -18,15 +18,15 @@
                 <input type="hidden" name="page" value="1">
                 <div class="input-group-prepend">
                     <select class="custom-select" name="type">
-                        <option th:selected="${pageRequestDTO.type == null}">---------</option>
-                        <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
-                        <option value="c" th:selected="${pageRequestDTO.type == 'c'}">내용</option>
-                        <option value="w" th:selected="${pageRequestDTO.type == 'w'}">작성자</option>
-                        <option value="tc" th:selected="${pageRequestDTO.type == 'tc'}">제목 + 내용</option>
-                        <option value="tcw" th:selected="${pageRequestDTO.type == 'tcw'}">제목 + 내용 + 작성자</option>
+                        <option th:selected="${requestDTO.type == null}">---------</option>
+                        <option value="t" th:selected="${requestDTO.type == 't'}">제목</option>
+                        <option value="c" th:selected="${requestDTO.type == 'c'}">내용</option>
+                        <option value="w" th:selected="${requestDTO.type == 'w'}">작성자</option>
+                        <option value="tc" th:selected="${requestDTO.type == 'tc'}">제목 + 내용</option>
+                        <option value="tcw" th:selected="${requestDTO.type == 'tcw'}">제목 + 내용 + 작성자</option>
                     </select>
                 </div>
-                <input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
+                <input class="form-control" name="keyword" th:value="${requestDTO.keyword}">
                 <div class="input-group-append" id="button-addon4">
                     <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
                     <button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
@@ -37,10 +37,10 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Gno</th>
                 <th scope="col">Title</th>
-                <th scope="col">Regdate</th>
+                <th scope="col">Writer</th>
+                <th scope="col">RegDate</th>
             </tr>
             </thead>
 
@@ -48,8 +48,8 @@
             <tr th:each="dto : ${result.dtoList}">
                 <th scope="row">
                     <a th:href="@{/guestbook/read(gno = ${dto.gno}, page = ${result.page},
-                    type= ${pageRequestDTO.type},
-                    keyword= ${pageRequestDTO.keyword})}">
+                    type= ${requestDTO.type},
+                    keyword= ${requestDTO.keyword})}">
                         [[${dto.gno}]]
                     </a>
                 </th>
@@ -63,22 +63,22 @@
         <ul class="pagination h-100 justify-content-center align-items-center">
             <li class="page-item" th:if="${result.prev}">
                 <a class="page-link" th:href="@{/guestbook/list(page= ${result.start -1},
-                type= ${pageRequestDTO.type},
-                keyword= ${pageRequestDTO.keyword})정}" tabindex="-1">Previous</a>
+                type= ${requestDTO.type},
+                keyword= ${requestDTO.keyword})}" tabindex="-1">Previous</a>
             </li>
 
             <li th:class="'page-item ' + ${result.page == page ? 'active' : ''}" th:each="page: ${result.pageList}">
                 <a class="page-link" th:href="@{/guestbook/list(page = ${page},
-                type= ${pageRequestDTO.type},
-                keyword= ${pageRequestDTO.keyword})}">
+                type= ${requestDTO.type},
+                keyword= ${requestDTO.keyword})}">
                     [[${page}]]
                 </a>
             </li>
 
             <li class="page-item" th:if="${result.next}">
                 <a class="page-link" th:href="@{/guestbook/list(page= ${result.end +1},
-                type= ${pageRequestDTO.type},
-                keyword= ${pageRequestDTO.keyword})}">Next</a>
+                type= ${requestDTO.type},
+                keyword= ${requestDTO.keyword})}">Next</a>
             </li>
         </ul>
 
@@ -87,17 +87,17 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">방명록 등록 확인</h5>
+                        <h5 id="modal-title" class="modal-title">방명록 Title</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <p>방명록이 등록되었습니다.</p>
+                    <div id="modal-body" class="modal-body">
+                        <p>방명록 Body</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save</button>
+<!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
                     </div>
                 </div>
             </div>
@@ -108,9 +108,26 @@
              -->
         <script th:inline="javascript">
             var msg = [[${msg}]]
-            console.log(msg);
+            var exPage = [[${exPage}]]
 
+            // 글이 등록 되거나 삭제 될때만 msg가 포함되어져 온다.
             if(msg){
+                var title = "";
+                var body = "";
+                var modalTitle = $("#modal-title");
+                var modalBody = $("#modal-body");
+                if(exPage == "register"){
+                    title = "방명록 등록 확인"
+                    body = "방명록이 등록되었습니다."
+                }
+                else if(exPage == "remove"){
+                    title = "방명록 삭제 확인"
+                    body = "방명록이 삭제되었습니다."
+                }
+
+                modalTitle.html(title);
+                modalBody.html(body);
+
                 $(".modal").modal();
             }
 
