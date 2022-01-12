@@ -3,7 +3,6 @@ package org.zerock.guestbook.mapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.zerock.guestbook.dto.GuestbookDTO;
 import org.zerock.guestbook.entity.Guestbook;
