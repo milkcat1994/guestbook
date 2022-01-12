@@ -16,6 +16,9 @@ public class PageRequestDTO {
     private int page;
     private int size;
 
+    private String type;
+    private String keyword;
+
     // page, size의 기본값은 1과 10으로 지정
     public PageRequestDTO(){
         this.page = 1;
